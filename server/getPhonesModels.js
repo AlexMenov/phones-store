@@ -8,6 +8,7 @@ const getPhoneModels = async (req, res) => {
     const [rows, fields] = await connection.query(sql);
     res.status(200).send(rows);
     connection.release();
+    connection.end();
   } catch (error) {
     console.error(error);
   }

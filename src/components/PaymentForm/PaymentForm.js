@@ -59,7 +59,7 @@ export const PaymentFormComponent = ({
         name="phone"
         value={formData.phone}
         onChange={handleInputChange}
-        placeholder="Phone"
+        placeholder="+79132504486"
         required
       />
       <PaymentButton type="submit">

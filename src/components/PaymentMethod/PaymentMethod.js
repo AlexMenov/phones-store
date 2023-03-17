@@ -14,10 +14,10 @@ export const PaymentMethodComponent = ({ handlePaymentMethodClick }) => {
   return (
     <PaymentMethod>
       <h3>Select Payment Method</h3>
-      <PaymentMethodButton onClick={() => handlePaymentMethodClick("cash")}>
+      <PaymentMethodButton onClick={() => handlePaymentMethodClick("наличные")}>
         Cash
       </PaymentMethodButton>
-      <PaymentMethodButton onClick={() => handlePaymentMethodClick("card")}>
+      <PaymentMethodButton onClick={() => handlePaymentMethodClick("банковская карта")}>
         Card
       </PaymentMethodButton>
     </PaymentMethod>

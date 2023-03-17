@@ -10,8 +10,8 @@ const addPhoneModel = async (phoneModelData) => {
       `INSERT INTO ${escapedCategory} (photo_address, name, description, price) VALUES (?, ?, ?, ?)`,
       [photoAddress, name, description, price]
     );
-    connection.release();
     console.log(`Added ${phoneModelData.name} to ${category} table`);
+    connection.end();
   } catch (error) {
     console.error(
       `Error adding ${phoneModelData.name} to ${category} table:`,

@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import { totalPrice, totalQuantity } from "../../store/productReducer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { PaymentMethodComponent } from "../PaymentMethod/PaymentMethod";
 import { PaymentFormComponent } from "../PaymentForm/PaymentForm";
+import { generatedId } from "../../store/generateId";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { resetStore } from "../../store/productReducer";
 
 const PaymentContainer = styled.div`
   display: flex;
@@ -30,6 +34,9 @@ const PaymentTotal = styled.div`
 `;
 
 export const PaymentPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const order = useSelector((state) => state.product.products);
   const quantity = useSelector(totalQuantity);
   const price = useSelector(totalPrice);
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -39,6 +46,7 @@ export const PaymentPage = () => {
     email: "",
     address: "",
     phone: "",
+    id: generatedId(),
   });
 
   const handlePaymentMethodClick = (method) => {
@@ -51,9 +59,27 @@ export const PaymentPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // submit form data here
+    if (order.length === 0) {
+      console.log("В корзине отсутствуют товары");
+      return;
+    }
+    try {
+      await axios.post("http://localhost:8000/api/order", {
+        user: formData,
+        order,
+        paymentMethod,
+        orderId: generatedId(),
+        date: new Date().toLocaleDateString("ru-RU"),
+        price,
+      });
+      console.log("Заказ выполнен успешно");
+      dispatch(resetStore());
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

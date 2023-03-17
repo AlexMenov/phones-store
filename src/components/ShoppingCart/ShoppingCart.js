@@ -75,10 +75,6 @@ export const ShoppingCart = () => {
   const cartItems = useSelector((state) => state.product.products);
   const price = useSelector(totalPrice);
   const quantity = useSelector(totalQuantity);
-  console.log(price, "+++++++++++++++")
-//   const totalPrice = cartItems.reduce((accumulator, item) => {
-//     return accumulator + item.price * item.quantity;
-//   }, 0);
   const handleUpdateProduct = (id, updates) => {
     dispatch(updateProduct({ id, ...updates }));
   };
