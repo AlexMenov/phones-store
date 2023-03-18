@@ -3,6 +3,7 @@ const { pool } = require("./connect");
 const findUser = async (userData) => {
   const { email: userEmail, phone: userPhone } = userData;
   let addUserToDatabase = true;
+  let user = false;
   try {
     const connection = await pool.getConnection();
     const results = await connection.query(
@@ -12,6 +13,7 @@ const findUser = async (userData) => {
     if (results[0].length > 0) {
       console.log("User exists");
       addUserToDatabase = false;
+      user = results[0];
     } else {
       console.log("User does not exist");
     }
@@ -19,7 +21,7 @@ const findUser = async (userData) => {
   } catch (error) {
     console.error(error);
   }
-  return addUserToDatabase;
+  return { addUserToDatabase, user };
 };
 
 module.exports = { findUser };

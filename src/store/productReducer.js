@@ -2,12 +2,21 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [],
+  user: { user_name: "noName" },
+  isAuthenticated: false,
 };
 
 const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
+    addUser: (state, action) => {
+      return {
+        ...state,
+        user: action.payload,
+        isAuthenticated: true,
+      };
+    },
     resetStore: (state, action) => {
       return initialState;
     },
@@ -54,6 +63,7 @@ const productSlice = createSlice({
 });
 
 export const {
+  addUser,
   resetStore,
   addProduct,
   deleteProduct,
@@ -62,12 +72,14 @@ export const {
   decrementQuantity,
 } = productSlice.actions;
 
-export const totalPrice = (state) => state.product.products.reduce((accumulator, item) => {
-  return accumulator + item.price * item.quantity;
-}, 0)
+export const totalPrice = (state) =>
+  state.product.products.reduce((accumulator, item) => {
+    return accumulator + item.price * item.quantity;
+  }, 0);
 
-export const totalQuantity = (state) => state.product.products.reduce((accumulator, item) => {
-  return accumulator + item.quantity;
-}, 0)
+export const totalQuantity = (state) =>
+  state.product.products.reduce((accumulator, item) => {
+    return accumulator + item.quantity;
+  }, 0);
 
 export default productSlice.reducer;

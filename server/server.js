@@ -3,6 +3,7 @@ const { getPhoneModels } = require("./getPhonesModels");
 const { sendmail } = require("./sendermail");
 const { createUser } = require("./createUser");
 const { findUser } = require("./findUser");
+const { createOrder, addOrderItems } = require("./addOrder");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -22,6 +23,23 @@ app.get("/api/phones/:id", async (req, res) => {
   }
 });
 
+app.post("/api/login", async (req, res) => {
+  try {
+    const user = await findUser(req.body);
+    if (user.addUserToDatabase) {
+      await createUser(req.body.user);
+    }
+    if (user.user[0]["user_id"]) {
+      res.status(200).send(user.user[0]);
+    } else {
+      res.status(500).send("User not found");
+    }
+  } catch (error) {
+    console.error("User request error:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
 app.post("/api/products", async (req, res) => {
   try {
     await addPhoneModel(req.body);
@@ -35,10 +53,16 @@ app.post("/api/products", async (req, res) => {
 app.post("/api/order", async (req, res) => {
   try {
     const needToCreatedUser = await findUser(req.body.user);
-    if (needToCreatedUser) {
+    if (needToCreatedUser.addUserToDatabase) {
       await createUser(req.body.user);
     }
-
+    const orderId = await createOrder(
+      req.body.user.id,
+      req.body.orderId,
+      req.body.date,
+      req.body.price
+    );
+    await addOrderItems(orderId, req.body.order);
     sendmail(
       req.body.user.email,
       req.body.orderId,

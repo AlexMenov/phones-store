@@ -7,12 +7,12 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ShoppingCart } from "../ShoppingCart/ShoppingCart";
 import { PaymentPage } from "../PaymentPage/PaymentPage";
 
+
 const MainContent = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
-
 `;
 
 export const Main = () => {

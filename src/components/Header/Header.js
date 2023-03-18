@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { resetStore, totalQuantity} from "../../store/productReducer";
+import { resetStore, totalQuantity } from "../../store/productReducer";
+import { LoginButton } from "../LoginButton/LoginButton";
+import { LoginDialog } from "../LoginDialog/LoginDialog";
+import { useState } from "react";
+import { UserIcon } from "../userIcon/UserIcon";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -62,10 +66,22 @@ export const Header = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const quantity = useSelector(totalQuantity);
+  const isAuthenticated = useSelector((state) => state.product.isAuthenticated);
+  const userName = useSelector((state) => state.product.user.user_name);
   const handleResetStore = () => {
     dispatch(resetStore());
   };
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
 
+  const handleLoginClick = () => {
+    setIsLoginDialogOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const handleLoginDialogClose = () => {
+    setIsLoginDialogOpen(false);
+    document.body.style.overflow = "visible";
+  };
   return (
     <HeaderContainer>
       <h1>Online Store</h1>
@@ -84,6 +100,15 @@ export const Header = () => {
           About us
         </MenuItem>
       </Menu>
+      {isAuthenticated ? (
+        <UserIcon userName={userName} />
+      ) : (
+        <LoginButton handleLoginClick={handleLoginClick} />
+      )}
+      <LoginDialog
+        isOpen={isLoginDialogOpen}
+        onClose={handleLoginDialogClose}
+      />
       <Cart to="/shoppingcart">
         <div>
           <CartIcon className="fa fa-shopping-cart" />
