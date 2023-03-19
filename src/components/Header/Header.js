@@ -67,7 +67,8 @@ export const Header = () => {
   const location = useLocation();
   const quantity = useSelector(totalQuantity);
   const isAuthenticated = useSelector((state) => state.product.isAuthenticated);
-  const userName = useSelector((state) => state.product.user.user_name);
+  const user = useSelector((state) => state.product.user);
+  const userName = user ? user.user_name : null; 
   const handleResetStore = () => {
     dispatch(resetStore());
   };

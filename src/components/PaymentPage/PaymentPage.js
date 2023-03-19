@@ -73,6 +73,7 @@ export const PaymentPage = () => {
         orderId: generatedId(),
         date: new Date().toLocaleDateString("ru-RU"),
         price,
+        orderStatus: "created",
       });
       console.log("Заказ выполнен успешно");
       dispatch(resetStore());

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [],
-  user: { user_name: "noName" },
+  user: { user_name: "noName", user_id: " " },
   isAuthenticated: false,
 };
 
@@ -18,7 +18,10 @@ const productSlice = createSlice({
       };
     },
     resetStore: (state, action) => {
-      return initialState;
+      return {
+        ...state,
+        products: [],
+      };
     },
     addProduct: (state, action) => {
       state.products.push({ ...action.payload, quantity: 1 });
@@ -78,8 +81,10 @@ export const totalPrice = (state) =>
   }, 0);
 
 export const totalQuantity = (state) =>
-  state.product.products.reduce((accumulator, item) => {
-    return accumulator + item.quantity;
-  }, 0);
+  state.product.products
+    ? state.product.products.reduce((accumulator, item) => {
+        return accumulator + item.quantity;
+      }, 0)
+    : 0;
 
 export default productSlice.reducer;

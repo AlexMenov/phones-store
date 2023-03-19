@@ -1,11 +1,17 @@
 const { pool } = require("./connect");
 
-const createOrder = async (userId, orderId, orderDate, orderPrice) => {
+const createOrder = async (
+  userId,
+  orderId,
+  orderDate,
+  orderPrice,
+  orderStatus
+) => {
   try {
     const connection = await pool.getConnection();
     const query =
-      "INSERT INTO orders (orders_id, user_id, order_date, order_price) VALUES (?, ?, ?, ?)";
-    const values = [orderId, userId, orderDate, orderPrice];
+      "INSERT INTO orders (orders_id, user_id, order_date, order_price, orders_status) VALUES (?, ?, ?, ?, ?)";
+    const values = [orderId, userId, orderDate, orderPrice, orderStatus];
     await connection.query(query, values);
     connection.release();
   } catch (error) {

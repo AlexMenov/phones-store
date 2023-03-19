@@ -8,9 +8,6 @@ const createUser = async (userData) => {
     phone: userPhone,
     id: userId,
   } = userData;
-//   console.log("---------------------");
-//   console.log(userName, userEmail, userAddress, userPhone, userId);
-//   console.log("----------------------");
   try {
     const connection = await pool.getConnection();
     connection.query(
@@ -24,6 +21,7 @@ const createUser = async (userData) => {
   } catch (error) {
     console.error(error);
   }
+  return userId;
 };
 
 module.exports = { createUser };

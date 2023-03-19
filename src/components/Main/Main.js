@@ -6,7 +6,7 @@ import { PhonesModels } from "../PhonesModels/PhonesModels";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ShoppingCart } from "../ShoppingCart/ShoppingCart";
 import { PaymentPage } from "../PaymentPage/PaymentPage";
-
+import { UserAccountPage } from "../UserAccountPage/UserAccountPage";
 
 const MainContent = styled.main`
   display: flex;
@@ -32,6 +32,7 @@ export const Main = () => {
           path="/admin"
           element={isLoggedIn ? <AddProductForm /> : <Navigate to="/login" />}
         />
+        <Route path="/account-page" element={<UserAccountPage />} />
       </Routes>
     </MainContent>
   );
