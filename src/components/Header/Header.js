@@ -5,7 +5,7 @@ import { resetStore, totalQuantity } from "../../store/productReducer";
 import { LoginButton } from "../LoginButton/LoginButton";
 import { LoginDialog } from "../LoginDialog/LoginDialog";
 import { useState } from "react";
-import { UserIcon } from "../userIcon/UserIcon";
+import { UserIcon } from "../UserIcon/UserIcon";
 
 const HeaderContainer = styled.header`
   display: flex;

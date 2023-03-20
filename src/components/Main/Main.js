@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ProductCards } from "../ProductCards/ProductCards";
-import { AddProductForm } from "../Admin/Admin";
+import { AdminPanel } from "../AdminPanel/AdminPanel";
 import { LoginForm } from "../Login/Login";
 import { PhonesModels } from "../PhonesModels/PhonesModels";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -30,7 +30,7 @@ export const Main = () => {
         />
         <Route
           path="/admin"
-          element={isLoggedIn ? <AddProductForm /> : <Navigate to="/login" />}
+          element={isLoggedIn ? <AdminPanel /> : <Navigate to="/login" />}
         />
         <Route path="/account-page" element={<UserAccountPage />} />
       </Routes>

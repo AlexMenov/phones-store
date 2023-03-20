@@ -5,6 +5,8 @@ const { createUser } = require("./createUser");
 const { findUser } = require("./findUser");
 const { createOrder, addOrderItems } = require("./addOrder");
 const { getUsersOrders } = require("./getUsersOrders");
+const { getAllProducts } = require("./getAllProducts");
+const { getAllUsers } = require("./getAllUsers");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -30,6 +32,27 @@ app.get("/api/orders/:id", async (req, res) => {
   } catch (error) {
     console.error("Orders request error:", error);
     res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/api/getallproducts", async (req, res) => {
+  try {
+    const products = await getAllProducts();
+    res.status(200).send(products);
+  } catch (error) {
+    console.error("Orders request error:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/api/getallusers", async (req, res) => {
+  console.log(process)
+  try {
+    const users = await getAllUsers();
+    res.status(200).send(users);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send("Ошибка запроса пользователей", e);
   }
 });
 

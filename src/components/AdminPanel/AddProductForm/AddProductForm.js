@@ -17,13 +17,6 @@ export const AddProductForm = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [addedModel, setAddedModel] = useState("");
 
-  const handlePhotoAddressChange = (event) =>
-    setPhotoAddress(event.target.value);
-  const handleNameChange = (event) => setName(event.target.value);
-  const handleDescriptionChange = (event) => setDescription(event.target.value);
-  const handlePriceChange = (event) => setPrice(event.target.value);
-  const handleCategoryChange = (event) => setCategory(event.target.value);
-
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
